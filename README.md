@@ -74,7 +74,7 @@ Quando hai finito con `lexicon.txt`, esegui questi comandi per creare gli altri 
 ```
 cut -d ' ' -f 2- lexicon.txt | sed 's/ /\n/g' | sort -u > nonsilence_phones.txt
 ```
-> :information_source: Dopo aver eseguito questo comando, con qualsiasi editor di testo, elimina la prima riga del file perché è vuota.
+> :information_source: Dopo aver eseguito questo comando controllate, con qualsiasi editor di testo, se la prima riga del file non sia vuota, altrimenti eliminala.
 ## silence_phones.txt:
 ```
 echo -e 'SIL\noov\nSPN' > silence_phones.txt
@@ -118,8 +118,6 @@ Per fare tutto questo, basta eseguire questo comando:
 ```
 ./align_train.sh
 ```
-var mdSmartArrows = require('markdown-it-smartarrows');
-var md = require('markdown-it')().use(mdSmartArrows);
 
 # Addestramento
 Come ultime cose, devi modificare due righe all’interno dello script dell’addestramento con `nano local/chain/tuning/run_tdnn_1j.sh (o qualsiasi altro editor di testo)`:
