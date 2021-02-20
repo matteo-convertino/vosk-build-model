@@ -83,22 +83,110 @@ echo -e 'SIL\noov\nSPN' > silence_phones.txt
 ```
 echo 'SIL' > optional_silence.txt
 ```
-Una volta aver creato tutto, importante è poi l’aggiunta di questa riga all’interno di `lexicon.txt` una volta creato tutto (per convenzione la mettiamo all’inizio del file):
+Una volta aver creato tutto, importante è poi l’aggiunta di questa riga all’interno di `lexicon.txt` una volta creato tutto, che serve per evitare l’errore `undefined symbol <UNK>` (per convenzione la mettiamo all’inizio del file):
+```
+<UNK> SPN
+...
+```
+Ora puoi eseguire:
+```
+utils/prepare_lang.sh data/local/dict "<UNK>" data/local/lang data/lang
+```
+Anche qui puoi controllare se tutto è corretto con i comandi:
+```
+utils/validate_lang.pl data/lang
+utils/validate_dict_dir.pl data/local/dict
+```
 
+# Creazione del Language Model
+Il language model è composto dal file `data/lang/G.fst` e il file `data/local/tmp/lm.arpa`. Per crearli bisogna eseguire lo script lm_creation.sh. Prima
+però c’è bisogno che tu crei un altro file: `data/local/corpus.txt`. Lo puoi semplicemente ricavare dal file `data/train/text`. 
+Questo nuovo file deve avere un numero di righe uguali a quanti sono gli audio (ad esempio per 100 audio 100 righe). Quindi dal tuo file `data/train/text`, con uno script che elimina l’utterance-id, avrai il tuo `corpus.txt`. 
+Inoltre, per eseguire `lm_creation.sh`, ti serve installare la libreria SRILM. Per installarla scarica il file .tar.gz da questo sito. Una volta scaricato rinomina il file in modo che non ci sia il numero della versione, quindi devi ritrovarti con il file chiamato in questo modo: `srilm.tar.gz`. Ora prendi il file e mettetilo sotto la cartella `kaldi/tools` e esegui:
+```
+./install_srilm.sh && ./env.sh
+```
+Se env.sh non viene eseguito devi renderlo eseguibile con il comando `chmod`.
+Ora puoi creare il tuo language model con il seguente comando:
+```
+./lm_creation.sh
+```
 
+# Training e Allignamenti
+Prima di poter far partire l’addestramento vero e proprio, devi completare altre fasi come l'allignamento e training monofonico e così via.
+Per fare tutto questo, basta eseguire questo comando:
+```
+./align_train.sh
+```
+var mdSmartArrows = require('markdown-it-smartarrows');
+var md = require('markdown-it')().use(mdSmartArrows);
 
+# Addestramento
+Come ultime cose, devi modificare due righe all’interno dello script dell’addestramento con `nano local/chain/tuning/run_tdnn_1j.sh (o qualsiasi altro editor di testo)`:
+```
+train_set=train_clean_5
+test_sets=dev_clean_2
+```
+sostituisci con:
+```
+train_set=train
+test_sets=test
+```
+Sempre all’interno di `run_tdnn_1j.sh`, modifica:
 
+```
+--use-gpu=yes
+```
+con:
+```
+--use-gpu=wait (se NON devi usare la gpu sostituisci “wait” con “no”)
+```
+e poi esegui anche:
+```
+sudo nvidia-smi -c 3
+```
+Il motivo di questo comando e dell’ultima modifica sono citati [qui](https://kaldi-asr.org/doc/cudamatrix.html).
+Accertati di aver bisogno di usare la gpu in modalità “wait”. Nel caso tu abbia provato ad avviare l’addestramento con “yes” e poi hai riscontrato un errore tipo:”error: core dump”, prova ad usare “wait”.
+Dopo esegui anche `nano local/nnet3/run_ivector_common.sh` e modifica le righe:
+```
+train_set=train_clean_5
+test_sets=”dev_clean_2”
+```
+con:
+```
+train_set=train
+test_sets=”test”
+```
+Ora eseguire l’addestramento:
+```
+local/chain/tuning/run_tdnn_1j.sh
+```
 
+# Ricavare modello
+Se l’addestramento non ti ha dato nessun errore, per avere il tuo modello compatibile con vosk puoi iniziare a prendere tutti i file necessari e metterli in una cartella. Questo viene fatto eseguendo:
+```
+./copy_final_result.sh
+```
+Come ultima cosa devi organizzare quei file in modo che vosk non abbia problemi. Vedendo dal loro sito ufficiale, infondo alla pagina, c’è una sezione chiamata ‘Model Structure’. Controlla i file che hai nella tua cartella e posizionali in quel modo.
+Avrai notato che vosk dice che il file `conf/model.conf` deve essere creato da te perché non è presente dopo l’addestramento. In tutti i miei modelli ho sempre aggiunto all’interno di quel file le seguenti righe:
+```
+--min-active=200
+--max-active=3000
+--beam=10.0
+--lattice-beam=2.0
+--acoustic-scale=1.0
+--frame-subsampling-factor=3
+--endpoint.silence-phones=1:2:3:4:5:6:7:8:9:10
+--endpoint.rule2.min-trailing-silence=0.5
+--endpoint.rule3.min-trailing-silence=1.0
+--endpoint.rule4.min-trailing-silence=2.0
+```
+Ora hai il tuo modello perfettamente compatibile con vosk.
 
-
-
-
-
-
-
-
-
-
-
-
-
+# Troubleshooting
+- Se, mentre fai il `make` sotto la cartella `src`, ti compare un errore che ti dice ad esempio `questa versione di cuda supporta versioni di gcc <= 7.0`, dopo aver installato la corretta versione, dovrai rifare prima il `make` sotto la cartella `tools`.
+- Durante l'esecuzione di `./configure` ti potrebbe comparire un errore in cui ti chiede di scaricare la libreria MKL. Se sei su una distribuzione basata su debian, per scaricarla devi semplicemente eseguire `sudo apt install intel_mkl` . Nell'installazione ti chiederà di sostituire un'altra libreria a 'BLAS and LAPACK'; io non l’ho mai fatto. Se anche essendo su debian non trovi il pacchetto sui tuoi repositori, segui questa [guida](https://www.r-bloggers.com/2018/04/18-adding-intel-mkl-easily-via-a-simple-script/).
+- Se quando stai cercando di eseguire il comando `steps/make_mfcc.sh --nj 20 --cmd "$train_cmd" data/train exp/make_mfcc/train $mfccdir` riscontri l'errore `steps/make_mfcc.sh --nj 20 --cmd data/train exp/make_mfcc/train steps/make_mfcc.sh: empty argument to --cmd option` devi solamente sostituire a `$train_cmd` `run.pl`, quindi il comando diventerà: `steps/make_mfcc.sh --nj 20 --cmd "run.pl" data/train exp/make_mfcc/train $mfccdir`
+- Se hai riscontrato questo errore `skipped: word WORD not in symbol state`, vuole dire che
+all’interno di `data/lang/words.txt` non c’è quella determinata parola. Per risolverlo devi correggere il
+file `data/local/dict/lexicon.txt`, perché molto probabilmente non c’è nemmeno lì, e eseguire di nuovo `cut -d ' ' -f 2- lexicon.txt | sed 's/ /\n/g' | sort -u > nonsilence_phones.txt` `utils/prepare_lang.sh data/local/dict "<UNK>" data/local/lang data/lang`
