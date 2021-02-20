@@ -168,7 +168,7 @@ Se l’addestramento non ti ha dato nessun errore, per avere il tuo modello comp
 ./copy_final_result.sh
 ```
 Come ultima cosa devi organizzare quei file in modo che vosk non abbia problemi. Vedendo dal loro sito ufficiale, infondo alla pagina, c’è una sezione chiamata ‘Model Structure’. Controlla i file che hai nella tua cartella e posizionali in quel modo.
-Avrai notato che vosk dice che il file `conf/model.conf` deve essere creato da te perché non è presente dopo l’addestramento. In tutti i miei modelli ho sempre aggiunto all’interno di quel file le seguenti righe:
+Avrai notato che vosk dice che il file `conf/model.conf` deve essere creato da te perché non è presente dopo l’addestramento. In tutti i miei modelli ho sempre creato quel file con all’interno le seguenti righe:
 ```
 --min-active=200
 --max-active=3000
