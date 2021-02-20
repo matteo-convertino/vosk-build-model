@@ -1,0 +1,1 @@
+# vosk_own_model
