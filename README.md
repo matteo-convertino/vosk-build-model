@@ -10,7 +10,7 @@ Per fare un buon modello, inoltre, utilizzare molti speaker e molte frasi render
 Se nel corso della guida andrai incontro a degli errori, ricorda di consultare la sezione [TROUBLESHOTTING](#troubleshooting) infondo alla guida perchè può esserti di aiuto.
 
 # Preparazione
-Se dovrai fare l'addestramento con la gpu, scarica e installa cuda prima di andare avanti e controlla la compatibilità tra cuda e le versioni di gcc e g++. Se non lo fai, durante i prossimi comandi, potresti andare incontro a delle interruzioni improvvise, senza un errore ben preciso.
+Se dovrai fare l'addestramento con la gpu, scarica e installa cuda prima di andare avanti e controlla la compatibilità tra cuda e le versioni di gcc e g++.
 
 Come prima cosa per iniziare a creare il proprio dataset, bisogna scaricare il progetto kaldi da github con il seguente comando:
 ```
