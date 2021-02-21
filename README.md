@@ -139,7 +139,7 @@ Still within `local/chain/tuning/run_tdnn_1j.sh`, edit:
 ```
 with:
 ```
---use-gpu=wait (se NON devi usare la gpu sostituisci “wait” con “no”)
+--use-gpu=wait (if you do NOT have to use the GPU replace "wait" with "no".)
 ```
 and then also run:
 ```
