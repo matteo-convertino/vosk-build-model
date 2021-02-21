@@ -12,7 +12,7 @@ Per fare un buon modello, inoltre, utilizzare molti speaker e molte frasi render
 Se nel corso della guida andrai incontro a degli errori, ricorda di consultare la sezione [TROUBLESHOTTING](#troubleshooting) infondo alla guida perchè può esserti di aiuto.
 
 # Preparazione
-Se dovrai fare l'addestramento con la gpu, scarica e installa cuda prima di andare avanti e controlla la compatibilità tra cuda e le versioni di gcc e g++.
+Se dovrai fare l'addestramento con la GPU, scarica e installa cuda prima di andare avanti e controlla la compatibilità tra cuda e le versioni di gcc e g++.
 
 Come prima cosa per iniziare a creare il proprio dataset, bisogna scaricare il progetto kaldi da github con il seguente comando:
 ```
@@ -22,7 +22,7 @@ Una volta scaricato, bisogna compilare tutti i programmi che serviranno e ti aiu
 ```
 cd kaldi/tools/; make; cd ../src; ./configure; make
 ```
-Se NON hai intenzione di usare la gpu per l’addestramento, il comando `./configure` deve diventare:
+Se NON hai intenzione di usare la GPU per l’addestramento, il comando `./configure` deve diventare:
 ```
 ./configure --use-cuda=no
 ```
@@ -140,7 +140,7 @@ Sempre all’interno di `local/chain/tuning/run_tdnn_1j.sh`, modifica:
 ```
 con:
 ```
---use-gpu=wait (se NON devi usare la gpu sostituisci “wait” con “no”)
+--use-gpu=wait (se NON devi usare la GPU sostituisci “wait” con “no”)
 ```
 e poi esegui anche:
 ```
