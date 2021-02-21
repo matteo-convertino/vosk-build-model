@@ -4,7 +4,7 @@ This guide tries to explain how to create your own compatible model with [vosk](
 *Read this in other languages: [Italian](README.it.md)*
 
 # Premise
-Before starting, I want to give you some tips on some pointts that can be crucial, and if ignored can waste your precious time.
+Before starting, I want to give you some tips on some points that can be crucial, and if ignored can waste your precious time.
 
 Obviously I suggest you to use a GPU for training, even a cheap one (for example I used a Nvidia P620 for my training), otherwise you could have trainings that last for days or weeks.
 To make a good model, also, using many speakers and many phrases will always make the voice recognition quality better. If you are on your own and you need to download some datasets to add to yours, you can try from this [site](https://sourceforge.net/projects/cmusphinx/files/Acoustic%20and%20Language%20Models/). I used this to get a dataset where to start for the italian language and with various small scrips in python I was able to adapt them for kaldi, but if you find some other site even easier to use you can definitely use it.
@@ -12,7 +12,7 @@ To make a good model, also, using many speakers and many phrases will always mak
 If you encounter any errors during the course of this guide, remember to consult the [TROUBLESHOOTING](#troubleshooting) section at the end of the guide because it may help you.
 
 # Preparation 
-If you're going to be training with the gpu, download and install cuda before you go ahead and check compatibility between cuda and versions of gcc and g++.
+If you're going to be training with the GPU, download and install cuda before you go ahead and check compatibility between cuda and versions of gcc and g++.
 
 First of all to start creating your dataset, you need to download the kaldi project from github with the following command:
 ```
@@ -22,7 +22,7 @@ Once downloaded, you have to compile all the programs that you will need and wil
 ```
 cd kaldi/tools/; make; cd ../src; ./configure; make
 ```
-If you are NOT going to use the gpu for training, the command `./configure` should become:
+If you are NOT going to use the GPU for training, the command `./configure` must become:
 ```
 ./configure --use-cuda=no
 ```
@@ -50,7 +50,7 @@ Otherwise you may have problems, for example with the command `steps/make_mfcc.s
 Once you have created all the files, you can check if everything is correct with the following commands:
 ```
 utils/validate_data_dir.sh data/train
-utils/fix_data_dir.sh data/train (nel caso di errori con il comando precedente)
+utils/fix_data_dir.sh data/train (in case of errors with the previous command)
 ```
 The last, but not least, step is to run this command:
 ```
@@ -103,8 +103,8 @@ utils/validate_dict_dir.pl data/local/dict
 ```
 
 # Language Model Creation
-The language model consists of the `data/lang/G.fst` file and the` data/local/tmp/lm.arpa` file. To create them you need to run the `lm_creation.sh` script. First, however, you need to create another file: `data / local / corpus.txt`.
-This new file must have a number of lines equal to the number of audios (for example for 100 audios 100 lines). In case you haven't created it previously, you can simply get it from the `data / train / text` file with a script that removes the utterance-id. 
+The language model consists of the `data/lang/G.fst` file and the` data/local/tmp/lm.arpa` file. To create them you need to run the `lm_creation.sh` script. First, however, you need to create another file: `data/local/corpus.txt`.
+This new file must have a number of lines equal to the number of audios (for example for 100 audios 100 lines). In case you haven't created it previously, you can simply get it from the `data/train/text` file with a script that removes the utterance-id. 
 Also, to run `lm_creation.sh`, you need to install the SRILM library. To install it, download the .tar.gz file from this [site](http://www.speech.sri.com/projects/srilm/download.html). Once downloaded, rename the file so that there is no version number, so you have to end up with the file named like this: `srilm.tar.gz`. Now take the file and put it under the `kaldi/tools` folder and run it:
 ```
 ./install_srilm.sh && ./env.sh
