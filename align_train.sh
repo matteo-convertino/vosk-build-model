@@ -57,7 +57,7 @@ if [ $stage -le 4 ]; then
   steps/get_prons.sh --cmd "$train_cmd" \
     data/train data/lang exp/tri3b
 
-  # Evitare che lexicon diventi vuoto e dia errore. In questo modo lo andrà a rifare il comando successivo da capo
+  # Prevent the lexicon from becoming empty and giving an error. In this way the next command will redo it from scratch.
   mv data/local/dict/lexicon.txt data/local/dict/lexicon_old.txt
 
   utils/dict_dir_add_pronprobs.sh --max-normalize true \
