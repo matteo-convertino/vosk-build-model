@@ -28,7 +28,7 @@ If you are NOT going to use the GPU for training, the command `./configure` must
 ```
 Finally you have to edit the file `cmd.sh` under `kaldi/egs/mini_librispeech/s5` (**which is the directory where you will work until the end of the guide**): change all `queue.pl` to `run.pl`.
 
-# Date Creation
+# Data Creation
 By following this official kaldi [guide](https://kaldi-asr.org/doc/data_prep.html), you will be able to create the `data/train` directory with its necessary training files. To avoid future problems, when you are creating the `data/train/text` file you can use this kind of formatting for the utterance-id:
 ```
 SPEAKERNAME-0 TEXT
