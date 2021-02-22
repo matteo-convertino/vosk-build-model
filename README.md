@@ -28,7 +28,15 @@ If you are NOT going to use the GPU for training, the command `./configure` must
 ```
 Then you have to edit the file `cmd.sh` under `kaldi/egs/mini_librispeech/s5` (**which is the directory where you will work until the end of the guide**): change all `queue.pl` to `run.pl`.
 
-Finally you have to download this project too, with the command `git clone https://github.com/matteo-39/vosk-build-model.git` and then to copy the scripts under the right directory:
+Finally you have to download this project too:
+```
+git clone https://github.com/matteo-39/vosk-build-model.git
+```
+make the scripts executable:
+```
+sudo chmod +x vosk-build-model/*.sh
+```
+and copy them to the right directory:
 ```
 cp vosk-build-model/*.sh PATH_TO_KALDI/egs/mini_librispeech/s5/
 ```
