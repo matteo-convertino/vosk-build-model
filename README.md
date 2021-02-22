@@ -26,7 +26,12 @@ If you are NOT going to use the GPU for training, the command `./configure` must
 ```
 ./configure --use-cuda=no
 ```
-Finally you have to edit the file `cmd.sh` under `kaldi/egs/mini_librispeech/s5` (**which is the directory where you will work until the end of the guide**): change all `queue.pl` to `run.pl`.
+Then you have to edit the file `cmd.sh` under `kaldi/egs/mini_librispeech/s5` (**which is the directory where you will work until the end of the guide**): change all `queue.pl` to `run.pl`.
+
+Finally you have to download this project too, with the command `git clone https://github.com/matteo-39/vosk-build-model.git` and then to copy the scripts under the right directory:
+```
+cp vosk-build-model/*.sh PATH_TO_KALDI/egs/mini_librispeech/s5/
+```
 
 # Data Creation
 By following this official kaldi [guide](https://kaldi-asr.org/doc/data_prep.html), you will be able to create the `data/train` directory with its necessary training files. To avoid future problems, when you are creating the `data/train/text` file you can use this kind of formatting for the utterance-id:
