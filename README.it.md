@@ -1,5 +1,5 @@
 # Creare un modello compatibile con Vosk
-Questa guida cerca di spiegare come creare un proprio modello compatibile con [vosk](https://alphacephei.com/vosk/), con l’utilizzo di [kaldi](https://kaldi-asr.org/). Premetto che non sono un esperto del progetto kaldi e della tecnologia che c’è dietro allo speech recognition e del machine learning in generale ma, data la difficoltà che io ho avuto nel creare il mio modello, ho voluto comunque condividere una piccola guida su questo.
+Questa guida cerca di spiegare come creare un proprio modello compatibile con [vosk](https://alphacephei.com/vosk/), con l’utilizzo di [kaldi](https://kaldi-asr.org/). Premetto che non sono un esperto del progetto kaldi e della tecnologia che c’è dietro allo speech recognition e del deep learning in generale ma, data la difficoltà che io ho avuto nel creare il mio modello, ho voluto comunque condividere una piccola guida su questo.
 
 *Read this in other languages: [English](README.md)*
 
