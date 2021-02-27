@@ -47,6 +47,7 @@ By following this official kaldi [guide](https://kaldi-asr.org/doc/data_prep.htm
 SPEAKERNAME-0 TEXT
 SPEAKERNAME-1 TEXT
 SPEAKERNAME-2 TEXT
+...
 ```
 As for the `data/train/wav.scp` file, you can do this:
 ```
