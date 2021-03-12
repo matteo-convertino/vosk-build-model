@@ -7,7 +7,7 @@ This guide tries to explain how to create your own compatible model with [vosk](
 Before starting, I want to give you some tips on some points that can be crucial, and if ignored can waste your precious time.
 
 Obviously I suggest you to use a GPU for training, even a cheap one (for example I used a Nvidia P620 for my training), otherwise you could have trainings that last for days or weeks.
-To make a good model, also, using many speakers and many phrases will always make the voice recognition quality better. If you are on your own and you need to download some datasets to add to yours, you can try from this [site](https://sourceforge.net/projects/cmusphinx/files/Acoustic%20and%20Language%20Models/). I used this to get a dataset where to start for the italian language and with various small scrips in python I was able to adapt them for kaldi, but if you find some other site even easier to use you can definitely use it.
+To make a good model, also, using many speakers and many phrases will always make the voice recognition quality better. If you are on your own and you need to download some datasets to add to yours, you can try from this [site](https://sourceforge.net/projects/cmusphinx/files/Acoustic%20and%20Language%20Models/). I used this to get a dataset where to start for the italian language and with various small scrips in python I was able to adapt it for kaldi, but if you find some other site even easier to use you can definitely use it.
 
 If you encounter any errors during the course of this guide, remember to consult the [TROUBLESHOOTING](#troubleshooting) section at the end of the guide because it may help you.
 
