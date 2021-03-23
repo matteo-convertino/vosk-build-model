@@ -66,10 +66,6 @@ Once you have created all the files, you can check if everything is correct with
 utils/validate_data_dir.sh data/train
 utils/fix_data_dir.sh data/train (in case of errors with the previous command)
 ```
-The last, but not least, step is to run this command:
-```
-cp -R data/train data/test
-```
 
 # Lang Creation
 To create the `data/lang` directory you only need to create one file, namely` data/local/dict/lexicon.txt`. This file consists of every single word in your audio and its phoneme.
