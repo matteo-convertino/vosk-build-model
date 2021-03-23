@@ -66,10 +66,6 @@ Una volta che hai creato tutti i file, puoi controllare se tutto è corretto con
 utils/validate_data_dir.sh data/train
 utils/fix_data_dir.sh data/train (nel caso di errori con il comando precedente)
 ```
-L’ultimo passaggio, ma non meno importante, è quello di eseguire questo comando:
-```
-cp -R data/train data/test
-```
 
 # Creazione Lang
 Per la creazione della directory `data/lang` hai bisogno di creare solamente un file, ovvero `data/local/dict/lexicon.txt`. Questo file è composto da ogni singola parola presente nei tuoi audio e dal suo fonema. Per trovare un programma gratuito che permetta di avere il fonema di una parola del dizionario italiano, ma non solo, ho dovuto cercare molto, e ho trovato espeak che con il comando `espeak -q -v it --ipa=3 prova` ti restituisce il fonema, in questo esempio della parola 'prova'.
