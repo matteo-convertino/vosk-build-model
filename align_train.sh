@@ -69,7 +69,6 @@ if [ $stage -le 4 ]; then
 
   . ./lm_creation.sh
 
-
   utils/build_const_arpa_lm.sh \
     data/local/tmp/lm.arpa.gz data/lang data/lang_test_tglarge
 
@@ -79,12 +78,19 @@ fi
 
 if [ $stage -le 5 ]; then
   echo
-  echo "==== Test the tri3b system with the silprobs and pron-probs."
-  echo "decode using the tri3b model ===="
+  echo "==== Creation of required folders ===="
   echo
   cp -r data/lang data/lang_test_tgsmall
   cp -r data/lang data/lang_test_tgmed
+  rsync -av --progress data/train/* data/test/ --exclude split*
+fi
 
+if [ $stage -le 6 ]; then
+  echo
+  echo "==== Test the tri3b system with the silprobs and pron-probs."
+  echo "decode using the tri3b model ===="
+  echo
+  
   utils/mkgraph.sh data/lang_test_tgsmall \
     exp/tri3b exp/tri3b/graph_tgsmall
   for test in test; do
