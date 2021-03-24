@@ -200,3 +200,4 @@ Ora hai il tuo modello perfettamente compatibile con vosk.
 - Se hai riscontrato questo errore `skipped: word WORD not in symbol state`, vuole dire che
 all’interno di `data/lang/words.txt` non c’è quella determinata parola. Per risolverlo devi correggere il
 file `data/local/dict/lexicon.txt`, perché molto probabilmente non c’è nemmeno lì, e eseguire di nuovo `cut -d ' ' -f 2- lexicon.txt | sed 's/ /\n/g' | sort -u > nonsilence_phones.txt` e `utils/prepare_lang.sh data/local/dict "<UNK>" data/local/lang data/lang`
+- Potrebbe capitare che l'addestramento si blocchi durante le iterazioni senza un errore e se si prova ad eseguire `nvidia-smi` anch'esso si bloccherà. Per risolvere questo bug bisogna eseguire `sudo nvidia-smi -pm 1`.
