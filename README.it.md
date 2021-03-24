@@ -85,7 +85,7 @@ Quando hai finito con `data/local/dict/lexicon.txt`, esegui questi comandi per c
 ```
 cut -d ' ' -f 2- lexicon.txt | sed 's/ /\n/g' | sort -u > nonsilence_phones.txt
 ```
-> :information_source: Dopo aver eseguito questo comando controllate, con qualsiasi editor di testo, se la prima riga del file non sia vuota, altrimenti devi eliminarla.
+> :information_source: Dopo aver eseguito questo comando controlla, con qualsiasi editor di testo, se la prima riga del file non sia vuota, altrimenti devi eliminarla.
 ## silence_phones.txt
 ```
 echo -e 'SIL\noov\nSPN' > silence_phones.txt
@@ -196,7 +196,7 @@ Ora hai il tuo modello perfettamente compatibile con vosk.
 # Troubleshooting
 - Se, mentre fai il `make` sotto la cartella `src`, ti compare un errore che ti dice ad esempio `questa versione di cuda supporta versioni di gcc <= 7.0`, dopo aver installato la corretta versione, dovrai rifare prima il `make` sotto la cartella `tools`.
 - Durante l'esecuzione di `./configure` ti potrebbe comparire un errore in cui ti chiede di scaricare la libreria MKL. Se sei su una distribuzione basata su debian, per scaricarla devi semplicemente eseguire `sudo apt install intel-mkl` . Nell'installazione ti chiederà di sostituire un'altra libreria a 'BLAS and LAPACK'; io non l’ho mai fatto. Se anche essendo su debian non trovi il pacchetto sui tuoi repositori, segui questa [guida](https://www.r-bloggers.com/2018/04/18-adding-intel-mkl-easily-via-a-simple-script/).
-- Se quando stai cercando di eseguire il comando `steps/make_mfcc.sh --nj 20 --cmd "$train_cmd" data/train exp/make_mfcc/train $mfccdir` riscontri l'errore `steps/make_mfcc.sh --nj 20 --cmd data/train exp/make_mfcc/train steps/make_mfcc.sh: empty argument to --cmd option` devi solamente sostituire a `$train_cmd` `run.pl`, quindi il comando diventerà: `steps/make_mfcc.sh --nj 20 --cmd "run.pl" data/train exp/make_mfcc/train $mfccdir`
+- Se quando stai cercando di eseguire il comando `steps/make_mfcc.sh --nj 20 --cmd "$train_cmd" data/train exp/make_mfcc/train $mfccdir` riscontri l'errore ` empty argument to --cmd option` devi solamente sostituire a `$train_cmd` `run.pl`, quindi il comando diventerà: `steps/make_mfcc.sh --nj 20 --cmd "run.pl" data/train exp/make_mfcc/train $mfccdir`
 - Se hai riscontrato questo errore `skipped: word WORD not in symbol state`, vuole dire che
 all’interno di `data/lang/words.txt` non c’è quella determinata parola. Per risolverlo devi correggere il
 file `data/local/dict/lexicon.txt`, perché molto probabilmente non c’è nemmeno lì, e eseguire di nuovo `cut -d ' ' -f 2- lexicon.txt | sed 's/ /\n/g' | sort -u > nonsilence_phones.txt` e `utils/prepare_lang.sh data/local/dict "<UNK>" data/local/lang data/lang`
