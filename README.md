@@ -200,3 +200,4 @@ Now you have your model perfectly compatible with vosk.
 - If you got this error `skipped: word WORD not in symbol state`, it means that
 within `data/lang/words.txt` there is not that particular word. To solve it you have to correct the
 file `data/local/dict/lexicon.txt`, because most likely it's not there either, and run again `cut -d ' ' -f 2- lexicon.txt | sed 's/ /\n/g' | sort -u > nonsilence_phones.txt` and `utils/prepare_lang.sh data/local/dict "<UNK>" data/local/lang data/lang`
+-  It may happen that the training crashes during iterations without an error and if you try to run `nvidia-smi` it will crash too. To fix this bug you need to run `sudo nvidia-smi -pm 1` before training.
