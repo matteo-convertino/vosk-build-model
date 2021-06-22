@@ -1,3 +1,5 @@
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fmatteo-39%2Fvosk-build-model&count_bg=%231F77DA&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Hits&edge_flat=false)](#)
+
 # Build model for Vosk
 This guide tries to explain how to create your own compatible model with [vosk](https://alphacephei.com/vosk/), with the use of [kaldi](https://kaldi-asr.org/). I state that I am not an expert on the kaldi project and on the technology behind speech recognition and deep learning in general but, given the difficulty I had in creating my model, I still wanted to share a little guide about this. I also apologize if the English level of this guide will be bad.
 
